@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+### 0.1.7-dsh.rc5.1 (local fork, not upstream)
+
+- Admits DSH 0.2.1-rc.5 host packages in the optional peer ranges so the bundle
+  installs on desktop runtime 0.2.1-rc.5 without a version exemption. Cordis
+  4.0.5 was already admitted by `>=4.0.0 <5.0.0`.
+- Verified by running the full suite against the published rc.5 host packages
+  (`cordis@4.0.5`, `dsh-llm@0.2.1-rc.5`, `dsh-session@0.2.1-rc.5`,
+  `dsh-session-format-v3-to-v4@0.2.1-rc.5`): 52/52 tests pass. The API surface the
+  plugin depends on is unchanged in rc.5 — `agent/pre-step` keeps its
+  `{ kind: 'reject' } | { kind: 'enter', messages }` decision contract,
+  `session/event` still emits `(session, event)`, `createUserMessage` and
+  `ctx.shell` are still exported/registered, and the `user/message`,
+  `assistant/message`, `turn/end`, `step/start`, `step/end` event types remain in
+  `KNOWN_SESSION_EVENT_TYPES`. `dsh-mcp-client` still accepts every config key the
+  bundle's patch row sets.
+- rc.3 and rc.4 stay unadmitted: they were not tested here.
+
 ## 0.1.7
 
 - Captures human input and assistant reply text instead of the model execution
